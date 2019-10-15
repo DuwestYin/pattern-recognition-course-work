@@ -7,6 +7,22 @@ clear;clc;
 data = textread('data.txt');
 samples = data(:, 2:end);
 labels = data(:, 1); 
-discrete_dim = discrete_continue(samples,10);
-tree= build_tree_45(samples, labels, discrete_dim); 
+N = length(labels);
+n = 130;
+rand_n = randperm(N); 
+train_samples = samples(rand_n(1:n),:);
+train_labels = labels(rand_n(1:n));
+test_samples = samples(rand_n(n+1:end),:);
+test_labels = labels(rand_n(n+1:end));
+discrete_dim = discrete_continue(train_samples,10);
+tree= build_tree_45(train_samples, train_labels, discrete_dim); 
+ results = zeros(length(test_labels), 1);
+ n = length(test_labels);
+ for i = 1:n
+     results(i) = predict_45(tree,test_samples(i,:));
+ end
+ correct_ratio = sum(results == test_labels)/n;
+
+
+
 
