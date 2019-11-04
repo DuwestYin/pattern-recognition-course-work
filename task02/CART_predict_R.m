@@ -1,8 +1,8 @@
-function result = CART_predict_C(tree, sample)
- while(1)
+function result = CART_predict_R(tree, sample)
+while(1)
      %叶子节点的情况
-     if ~isempty(tree.class)
-         result = tree.class;
+     if ~isempty(tree.value)
+         result = tree.value;
          return;
      end
      %离散的情况
@@ -23,5 +23,6 @@ function result = CART_predict_C(tree, sample)
      end 
  end
  
- 
+
+
 end
