@@ -5,6 +5,11 @@ function tree_C = CART_build_tree_C(samples, labels, attr_state, discrete_dim, s
 %attr_state  特征的有效标志
 %samples_T   样本的阈值数量
 %gini_T      基尼系数阈值
+persistent num;
+if isempty(num)
+    num = -1;
+end
+num = num + 1;
 [N, M] = size(samples);           %样本数量 特征数量
 % 
  if (N == 0)                 %样本为空返回
@@ -22,11 +27,15 @@ Gini = Gini_fun(labels);   %计算基尼系数
 %样本太少了或者基尼系数太小了或者没有特征了返回
 if (N <= samples_T) || (Gini <= gini_T) || (sum(attr_state) == 0)    
     [~, index] = max(uq_labels_n);         %样本最多的那个标签的下标
-    tree_C.child = [];
+    tree_C.child_left = [];
+    tree_C.child_right = [];
     tree_C.class = uq_labels(index);       %标签为最多的那个
     tree_C.attribute = [];
     tree_C.split_left = [];
     tree_C.split_rignt = [];
+    tree_C.labels = labels;     %保留落入节点样本的标签，剪枝有用
+%     tree_C.alpha = inf;         %剪枝在做修改
+%     tree_C.num = num;
     return;
 end
 
@@ -70,7 +79,7 @@ if discrete_dim(op_attribute) ~= 0
     sub_a = samples(sub_a_idx,:);       %左子树的样本
     sub_a_labels = labels(sub_a_idx);   %左子树标签
     sub_b = samples(sub_b_idx,:);
-    sub_b_labels = labels(sub_b_idx);
+    sub_b_labels = labels(sub_b_idx);   %保留落入节点样本的标签，剪枝有用
 
     attr_state_a = attr_state;
     attr_state_b = attr_state;
@@ -83,6 +92,8 @@ if discrete_dim(op_attribute) ~= 0
     tree_C.attribute = op_attribute;        %最分割优特征
     tree_C.split_left = op_attribute_v;     %左子树的值
     tree_C.split_right = uq_attribute(uq_attribute ~= op_attribute_v);  %右子树的值
+    tree_C.labels = labels;
+%     tree_C.alpha = inf;         %剪枝在做修改
 else
     %如果特征值连续
     sub_a_idx = samples(:, op_attribute) <= op_split_point(op_attribute);  %左子树的下表索引
@@ -96,9 +107,13 @@ else
     
     tree_C.attribute = op_attribute;        %最分割优特征
     tree_C.split_left = op_split_point(op_attribute);     %左右都是分割值
-    tree_C.split_right = tree_C.split_left;                
+    tree_C.split_right = tree_C.split_left;
+    tree_C.labels = labels;       %保留落入节点样本的标签，剪枝有用
+%     tree_C.alpha = inf;         %剪枝在做修改
 end
 tree_C.class = [];
+% tree_C.num = num;
+
 tree_C.child_left = CART_build_tree_C(sub_a, sub_a_labels, attr_state_a, discrete_dim, samples_T, gini_T); %递归构建
 tree_C.child_right = CART_build_tree_C(sub_b, sub_b_labels, attr_state_b, discrete_dim, samples_T, gini_T);
 
