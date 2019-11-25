@@ -4,7 +4,7 @@ function [T, alphas] = get_alhpas(T)
 % T: 一棵分类树
 % 函数输出值:
 % T: 求得每个节点alpha值的树
-% alphas: 树的每个节点的alpha值
+% alphas: 树的每个节点的alpha值数组
 
 
 persistent alpha;

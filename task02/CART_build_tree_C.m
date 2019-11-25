@@ -6,8 +6,8 @@ function tree_C = CART_build_tree_C(samples, labels, attr_state, discrete_dim, s
 % labels        样本的标签
 % attr_state    特征的有效标志
 % discrete_dim  样本特征离散维度
-% samples_T     样本的数量阈值
-% gini_T        基尼系数阈值
+% samples_T     样本的数量阈值(用于预剪枝）
+% gini_T        基尼系数阈值(用于预剪枝）
 
 %函数输出值：
 %构建好的CART分类树

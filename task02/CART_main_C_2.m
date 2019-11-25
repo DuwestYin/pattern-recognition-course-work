@@ -15,30 +15,33 @@ clear;clc;close all;
 % n2 = 50000;
 % n3 = 60000;
 % rand_n = randperm(N); 
-% train_samples = images(rand_n(1:n1),:);
+% fprintf('正在分割样本……\n');
+% train_samples = images(rand_n(1:n1),:);   %把样本分为训练集和测试集
 % train_labels = labels(rand_n(1:n1));
 % test_samples = images(rand_n(n1:n2),:);
 % test_labels = labels(rand_n(n1:n2));
 % cv_samples = images(rand_n(n2:n3),:);
 % cv_labels = labels(rand_n(n2:n3));
+% fprintf('正在二值化样本……\n');
 % train_samples = one_or_zero(train_samples);
 % test_samples = one_or_zero(test_samples);
 % cv_samples = one_or_zero(cv_samples);
-
-fprintf('正在加载数据……\n');     %分割好且二值化的数据
-load('samples_and_labels_0_1.mat');
-
-%初始化各个参数
-% M = size(train_samples, 2);
+% 
+% fprintf('正在初始化训练参数……\n');
+% M = size(train_samples, 2);       %初始化各个参数
 % samples_T = 5;
 % gini_T = 0.05;
 % attr_state = ones(1,M);
 % discrete_dim = CART_is_continue(train_samples,10);
-% fprintf('正在训练模型……\n');
+% fprintf('正在训练预剪枝模型……\n');
 % tree_C = CART_build_tree_C(train_samples, train_labels, attr_state, discrete_dim, samples_T, gini_T); 
-% fprintf('正在剪枝……\n');
-% b_tree = CART_pruning_C(tree_C, cv_samples, cv_labels);
+% fprintf('预剪枝的模型训练完成！\n');
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%         采用保存的训练好的模型来验证，节约训练时间
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fprintf('正在加载数据……\n');     %分割好且二值化的数据
+load('samples_and_labels_0_1.mat');
 fprintf('正在加载训练好的模型……\n');  %训练好的未剪枝模型
 load('big_tree_ucut.mat')
 

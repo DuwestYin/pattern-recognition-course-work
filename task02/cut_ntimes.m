@@ -13,7 +13,7 @@ while true
     alpha_min = min(alphas);       
     T2 = cut_once(T, alpha_min);   %选择alpha值最小的那个节点剪掉
     k = k + 1;
-    disp(k);
+    fprintf('第%d棵子树\n',k);
     best_trees{k} = T2;            %将子树存储到元胞数组中
     T = T2;                        %迭代进行
 end

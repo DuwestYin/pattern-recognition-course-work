@@ -3,6 +3,7 @@ function discrete_dim = CART_is_continue(samples, T)
 % 函数输入参数：
 % samples: 样本集
 % T: 离散特征数量阈值，小于该值则判定为离散
+% 函数输出值: 每个特征的离散维度
 
 FN = size(samples, 2); %特征数
 for i = 1:FN

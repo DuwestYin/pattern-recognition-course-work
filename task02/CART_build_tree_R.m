@@ -7,7 +7,7 @@ function tree_R = CART_build_tree_R(samples, y, attr_state, discrete_dim, sample
 % attr_state    特征的有效标志
 % discrete_dim  样本特征离散维度
 % samples_T     样本的数量阈值
-% gini_T        基尼系数阈值
+
 
 %函数输出值：
 %构建好的CART回归树

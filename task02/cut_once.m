@@ -1,5 +1,5 @@
 function T = cut_once(T, alpha_min)   
-% 函数功能：剪掉alpha最小的那个节点
+% 函数功能：剪掉一棵树alpha最小的那个节点
 % 函数输入参数: 
 % T: 需要剪枝的树
 % alpha_min: 最小的alpha值
