@@ -1,13 +1,20 @@
 function tree_R = CART_build_tree_R(samples, y, attr_state, discrete_dim, samples_T)
-%构建CART回归树
-%sammples    不带标签的训练样本
-%labels      样本的标签
-%attr_state  特征的有效标志
-%samples_T   样本的阈值数量
-%gini_T      基尼系数阈值
+%函数功能：构建CART回归树
+
+%函数输入参数：
+% sammples      不带标签的训练样本
+% labels        样本的标签
+% attr_state    特征的有效标志
+% discrete_dim  样本特征离散维度
+% samples_T     样本的数量阈值
+% gini_T        基尼系数阈值
+
+%函数输出值：
+%构建好的CART回归树
+
 [N, M] = size(samples);           %样本数量 特征数量
 
-if (N == 0)                 %样本为空返回
+if (N == 0)                    %样本为空返回
     tree_R = [];
     return;
 end

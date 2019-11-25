@@ -1,19 +1,28 @@
 function tree_C = CART_build_tree_C(samples, labels, attr_state, discrete_dim, samples_T, gini_T)
-%构建CART分类树
-%sammples    不带标签的训练样本
-%labels      样本的标签
-%attr_state  特征的有效标志
-%samples_T   样本的阈值数量
-%gini_T      基尼系数阈值
-persistent num;
-if isempty(num)
-    num = -1;
-end
-num = num + 1;
+%函数功能：构建CART分类树
+
+%函数输入参数：
+% sammples      不带标签的训练样本
+% labels        样本的标签
+% attr_state    特征的有效标志
+% discrete_dim  样本特征离散维度
+% samples_T     样本的数量阈值
+% gini_T        基尼系数阈值
+
+%函数输出值：
+%构建好的CART分类树
+
 [N, M] = size(samples);           %样本数量 特征数量
 % 
- if (N == 0)                 %样本为空返回
-     tree_C = [];
+ if (N == 0)                      %样本为空返回
+     %tree_C = [];
+      tree_C.child_left = [];
+      tree_C.child_right = [];
+      tree_C.class = inf;       %标签为最多的那个
+      tree_C.attribute = [];
+      tree_C.split_left = [];
+      tree_C.split_rignt = [];
+      tree_C.labels = [];       %为了好剪枝
      return;
  end
 
@@ -33,7 +42,7 @@ if (N <= samples_T) || (Gini <= gini_T) || (sum(attr_state) == 0)
     tree_C.attribute = [];
     tree_C.split_left = [];
     tree_C.split_rignt = [];
-    tree_C.labels = labels;     %保留落入节点样本的标签，剪枝有用
+    tree_C.labels = labels;       %保留落入节点样本的标签，剪枝有用
 %     tree_C.alpha = inf;         %剪枝在做修改
 %     tree_C.num = num;
     return;

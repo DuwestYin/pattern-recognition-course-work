@@ -1,4 +1,10 @@
 function result = CART_predict_C(tree, sample)
+% 函数功能：对一个样本进行类别预测
+% 函数输入参数：
+% tree:   训练好的分类树
+% sample: 一个样本
+% 函数输出值: 样本的类别
+
  while(1)
      %叶子节点的情况
      if ~isempty(tree.class)

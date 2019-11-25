@@ -1,5 +1,8 @@
 function labels = load_labels(filename)
-%返回MNIST图像数据集的标签
+% 函数功能: 加载手写数字图像样本类别标签
+% 函数输入参数:
+% filename: 样本文件名
+% 函数输出值: 一列手写数字图像的类别标签集
 
 fp = fopen(filename, 'rb');
 assert(fp ~= -1, ['Could not open ', filename, '']);

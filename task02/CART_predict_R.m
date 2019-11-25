@@ -1,4 +1,9 @@
 function result = CART_predict_R(tree, sample)
+% 函数功能：对一个样本进行取值预测
+% 函数输入参数：
+% tree:   训练好的回归树
+% sample: 一个样本
+% 函数输出值: 样本的取值
 while(1)
      %叶子节点的情况
      if ~isempty(tree.value)
